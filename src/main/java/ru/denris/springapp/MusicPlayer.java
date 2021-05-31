@@ -1,12 +1,25 @@
 package ru.denris.springapp;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Component("musicPlayerBean")
 public class MusicPlayer {
     //private Music music;
+    //@Autowired
+    //@Qualifier("rockMusicBean")
     private List<Music> musicList = new ArrayList<>();
+    @Value("${musicPlayer.name}")
     private String name;
+    @Value("${musicPlayer.volume}")
     private int volume;
 
     public String getName() {
@@ -24,13 +37,14 @@ public class MusicPlayer {
     public void setVolume(int volume) {
         this.volume = volume;
     }
-
+    //@Autowired
     public void setMusicList(List<Music> musicList) {
         this.musicList = musicList;
     }
 
     //Inversion of control
-    public MusicPlayer(List<Music> musicList) {
+    @Autowired
+    public MusicPlayer(@Qualifier("rockMusicBean") List<Music> musicList) {
         this.musicList = musicList;
     }
 
@@ -44,10 +58,12 @@ public class MusicPlayer {
     }
 
     //любой модификатор доступа
+    @PostConstruct
     private void doingPostCreate(){
         System.out.println("Doing MusicPlayer post-creation");
     }
     //вызывается только у singleton
+    @PreDestroy
     private void doingPreDestroy(){
         System.out.println("Doing MusicPlayer pre-destroying");
     }

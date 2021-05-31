@@ -1,5 +1,8 @@
 package ru.denris.springapp;
 
+import org.springframework.stereotype.Component;
+
+@Component("classicalMusicBean")
 public class ClassicalMusic implements Music{
 
     private ClassicalMusic(){}

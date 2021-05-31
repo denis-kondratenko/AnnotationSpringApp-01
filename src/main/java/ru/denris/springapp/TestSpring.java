@@ -11,12 +11,9 @@ public class TestSpring {
         //Inversion of control
         //MusicPlayer musicPlayer = new MusicPlayer(music);
 
-        MusicPlayer musicPlayer = context.getBean("musicPlayer",MusicPlayer.class);
+        MusicPlayer musicPlayer = context.getBean("musicPlayerBean",MusicPlayer.class);
         System.out.println(musicPlayer.getName() + " volume:" + musicPlayer.getVolume());
-
         musicPlayer.playMusic();
-
-
 
         context.close();
     }
